@@ -1,0 +1,26 @@
+# Upload monorepo sources, never local credentials/builds/research/screenshots.
+**/node_modules/**
+**/.git/**
+**/.expo/**
+**/.turbo/**
+**/dist/**
+**/dist-electron/**
+**/web-build/**
+**/.env
+**/.env.*
+**/*.log
+**/*.pem
+**/*.key
+**/*.jks
+**/*.keystore
+**/*.apk
+**/*.aab
+verification/*.png
+documentation.report/**
+PROJECT_FILES.txt
+task.md
+/android/
+/ios/
+/packages/mobile/android/
+/packages/mobile/ios/
+# Keep packages/mobile/native, plugins and modules/react-native-openvpn (vendored VPN engine).

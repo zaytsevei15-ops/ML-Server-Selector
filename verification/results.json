@@ -1,0 +1,15 @@
+{
+  "passed": [
+    "Mandatory first-run warning and acknowledgment",
+    "Live Russian profile structural check, never a connected state",
+    "Live feed, Russia city search, destination persistence, honest tunnel blocker",
+    "Invalid/valid ID format and explicit unknown region",
+    "Language/theme persistence across reload, consent persistence",
+    "Advanced Server informational route",
+    "Source failure shown explicitly; no invented availability",
+    "No entered ID in observed requests; no JS runtime errors"
+  ],
+  "runtime_errors": [],
+  "request_count": 36,
+  "scope": "Chrome Expo web preview; native device and cloud APK not tested"
+}

@@ -1,0 +1,87 @@
+// ML Server Selector: vendored copy of @aliakhgar1/react-native-openvpn@1.0.0
+// adapted for React Native 0.81 / Expo SDK 54 / AGP 8.x.
+// No own "buildscript" block: the Android Gradle Plugin and Kotlin plugin
+// come from the app's root project, so versions never conflict.
+
+def safeExtGet(name, fallback) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : fallback
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "com.facebook.react"
+
+android {
+  namespace "com.openvpn"
+  compileSdkVersion safeExtGet("compileSdkVersion", 35)
+  ndkVersion safeExtGet("ndkVersion", "27.1.12297006")
+
+  defaultConfig {
+    minSdkVersion safeExtGet("minSdkVersion", 24)
+    targetSdkVersion safeExtGet("targetSdkVersion", 35)
+
+    // OpenVPN extra flags used by the bundled ics-openvpn sources.
+    buildConfigField "boolean", "openvpn3", "true"
+    buildConfigField "String", "FLAVOR", '"skeleton"'
+  }
+
+  buildFeatures {
+    buildConfig true
+    aidl true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+  }
+
+  lint {
+    disable "GradleCompatible"
+    abortOnError false
+    checkReleaseBuilds false
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+
+  sourceSets {
+    main {
+      manifest.srcFile "src/main/AndroidManifestNew.xml"
+      java.srcDirs += ["generated/java", "generated/jni"]
+      jni.srcDirs = [] // prebuilt .so only, no ndk-build
+      jniLibs.srcDirs = ["src/main/libs"]
+    }
+  }
+
+  packaging {
+    jniLibs {
+      useLegacyPackaging = true
+    }
+  }
+}
+
+// Kotlin must target the same JVM as Java (avoids "Inconsistent JVM-target compatibility").
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+  compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+}
+
+repositories {
+  google()
+  mavenCentral()
+}
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+  implementation "androidx.core:core-ktx:1.13.1"
+  implementation "androidx.appcompat:appcompat:1.7.0"
+  implementation "androidx.security:security-crypto-ktx:1.1.0-alpha07"
+}
+
+react {
+  jsRootDir = file("../src/")
+  libraryName = "Openvpn"
+  codegenJavaPackageName = "com.openvpn"
+}

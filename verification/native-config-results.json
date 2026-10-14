@@ -1,0 +1,11 @@
+{
+  "manifest": "Expo introspection (not final merged APK manifest)",
+  "engine": "vendored modules/react-native-openvpn (RN 0.81 fixes), no build-time patching",
+  "nativeLibraries": 12,
+  "elfAlignment": "all included 64-bit LOAD segments >=16KiB",
+  "nodePingRegistration": "idempotent fixture, not compiled Android application",
+  "androidBuild": "not run",
+  "devicePing": "not tested",
+  "deviceHandshake": "not tested",
+  "dnsLeaks": "not tested"
+}

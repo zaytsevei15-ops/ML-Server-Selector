@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "geography save/reload",
+    "custom city selection persistence",
+    "custom text applied",
+    "section numbers unpadded",
+    "new country with duplicate-code guard",
+    "country hide/show and per-country restore",
+    "RU node hidden (176.123.207.123) absent; featured (46.43.232.14) first",
+    "confirmed local reset"
+  ],
+  "runtime_errors": []
+}

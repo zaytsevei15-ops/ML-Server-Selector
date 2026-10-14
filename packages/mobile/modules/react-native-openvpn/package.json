@@ -1,0 +1,53 @@
+{
+  "name": "@aliakhgar1/react-native-openvpn",
+  "version": "1.0.0-ml.1",
+  "private": true,
+  "description": "Vendored, RN 0.81-compatible copy of @aliakhgar1/react-native-openvpn 1.0.0 for ML Server Selector (Android only)",
+  "source": "./src/index.tsx",
+  "main": "./lib/module/index.js",
+  "types": "./lib/typescript/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/typescript/src/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "react-native.config.js",
+    "LICENSE",
+    "NOTICE.md"
+  ],
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliAkhgar/react-native-openvpn.git"
+  },
+  "author": "Ali Akhgar <theakhgar@gmail.com> (https://github.com/AliAkhgar)",
+  "license": "SEE LICENSE IN NOTICE.md",
+  "homepage": "https://github.com/AliAkhgar/react-native-openvpn#readme",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "codegenConfig": {
+    "name": "RNOpenvpnSpec",
+    "type": "modules",
+    "jsSrcsDir": "src",
+    "outputDir": {
+      "ios": "ios/generated",
+      "android": "android/generated"
+    },
+    "android": {
+      "javaPackageName": "com.openvpn"
+    },
+    "includesGeneratedCode": true
+  }
+}
