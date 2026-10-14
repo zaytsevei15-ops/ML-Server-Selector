@@ -12,11 +12,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Force Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: '20.x'
+          check-latest: true
+
+      - name: Verify Node version
+        run: node -v
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
@@ -24,10 +27,8 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Install dependencies & add CLI
-        run: |
-          npm install --save-dev @react-native-community/cli
-          npm install
+      - name: Install dependencies
+        run: npm install
 
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
