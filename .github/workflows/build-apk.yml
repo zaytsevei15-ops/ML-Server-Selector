@@ -30,6 +30,10 @@ jobs:
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
 
+      - name: Bundle JS manually to catch errors
+        working-directory: ./android
+        run: npx react-native bundle --platform android --dev false --entry-file ../index.js --bundle-output ./app/build/generated/assets/react/release/index.android.bundle --assets-dest ./app/build/generated/res/react/release
+
       - name: Build APK with Gradle
         working-directory: ./android
         env:
