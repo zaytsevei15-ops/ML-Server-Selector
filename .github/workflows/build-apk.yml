@@ -30,8 +30,10 @@ jobs:
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
 
-      - name: Build APK with Gradle (Verbose)
+      - name: Build APK with Gradle
         working-directory: ./android
+        env:
+          CI: true
         run: ./gradlew assembleRelease --info --stacktrace
 
       - name: Upload APK artifact
