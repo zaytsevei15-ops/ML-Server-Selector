@@ -12,10 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
 
       - name: Setup Java JDK
@@ -24,15 +24,13 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies & add CLI
+        run: |
+          npm install --save-dev @react-native-community/cli
+          npm install
 
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
-
-      - name: Bundle JS manually to catch errors
-        working-directory: ./android
-        run: npx react-native bundle --platform android --dev false --entry-file ../index.js --bundle-output ./app/build/generated/assets/react/release/index.android.bundle --assets-dest ./app/build/generated/res/react/release
 
       - name: Build APK with Gradle
         working-directory: ./android
