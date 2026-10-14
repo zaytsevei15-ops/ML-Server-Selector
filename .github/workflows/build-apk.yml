@@ -33,10 +33,8 @@ jobs:
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
 
-      - name: Enable Gradle Build Cache
-        run: |
-          mkdir -p android
-          echo "org.gradle.caching=true" >> android/gradle.properties
+      - name: Explicit Bundle Export for Debugging
+        run: npx expo export --platform android --dev false --dump-sourcemap
 
       - name: Build APK with Gradle
         working-directory: ./android
