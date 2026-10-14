@@ -33,11 +33,12 @@ jobs:
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
 
-      - name: Build APK with Gradle (Diagnostic Info)
+      - name: Build Android via Gradle with Project Root Override
         working-directory: ./android
         env:
           CI: true
-        run: ./gradlew assembleRelease --no-daemon --info --stacktrace
+          REACT_NATIVE_PACKAGER_HOSTNAME: localhost
+        run: ./gradlew assembleRelease --no-daemon
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
