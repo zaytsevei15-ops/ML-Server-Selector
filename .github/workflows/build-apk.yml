@@ -33,10 +33,11 @@ jobs:
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
 
-      - name: Explicit Expo Export Bundle (Bypass Gradle blackbox)
-        run: npx expo export --platform android --dev false
+      - name: Explicit Expo Export Bundle (Fixed arguments)
+        run: npx expo export --platform android
         env:
           CI: true
+          NODE_ENV: production
 
       - name: Copy bundle to Android assets
         run: |
@@ -47,7 +48,6 @@ jobs:
           elif [ -f "dist/index.android.bundle" ]; then
             cp dist/index.android.bundle android/app/src/main/assets/index.android.bundle
           else
-            # Fallback export location for standard RN structure
             npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
           fi
 
