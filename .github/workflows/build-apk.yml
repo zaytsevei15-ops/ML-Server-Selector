@@ -33,12 +33,29 @@ jobs:
       - name: Run Expo prebuild
         run: npx expo prebuild --platform android --clean
 
-      - name: Build Android via Gradle with Project Root Override
+      - name: Explicit Expo Export Bundle (Bypass Gradle blackbox)
+        run: npx expo export --platform android --dev false
+        env:
+          CI: true
+
+      - name: Copy bundle to Android assets
+        run: |
+          mkdir -p android/app/src/main/assets
+          mkdir -p android/app/src/main/res
+          if [ -f "dist/_expo/static/js/android/index-*.js" ]; then
+            cp dist/_expo/static/js/android/index-*.js android/app/src/main/assets/index.android.bundle
+          elif [ -f "dist/index.android.bundle" ]; then
+            cp dist/index.android.bundle android/app/src/main/assets/index.android.bundle
+          else
+            # Fallback export location for standard RN structure
+            npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+          fi
+
+      - name: Build APK with Gradle (Skipping internal bundle task)
         working-directory: ./android
         env:
           CI: true
-          REACT_NATIVE_PACKAGER_HOSTNAME: localhost
-        run: ./gradlew assembleRelease --no-daemon
+        run: ./gradlew assembleRelease --no-daemon -x bundleReleaseJsAndAssets
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
